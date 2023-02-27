@@ -8,7 +8,9 @@ public class HitSystem : MonoBehaviour
     public List<GameObject> knifes = new List<GameObject>();
     public SwordFly swordFly;
     public GameObject knife;
+    public WalSystem ws;
     public int count = 0;
+    private bool isSideHitted = false;
     public float knifePositionDefault = 0.15f;
     public float knifePositionRange = 0.14f;
     public float hitPositionDefault = 0.085f;
@@ -56,16 +58,32 @@ public class HitSystem : MonoBehaviour
         k.transform.localPosition = new Vector3(0, knifePositionDefault + (knifePositionRange * count++), 0);
         k.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 0));
         gameObject.transform.localPosition = new Vector3(0, hitPositionDefault + (hitPositionRange * count), 0);
-        Debug.Log(count);
+//        Debug.Log(count);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Item")
-        {
-            plusKnife();
-            StartCoroutine("turnOffAndOn", other.gameObject);
-        }
+        // if (other.tag == "Side")
+        // {
+        //     Debug.Log("들어간다!");
+        //     swordFly.jump2Sword(-1);
+        // }
+            if (other.tag == "Item")
+            {
+                if(Mathf.Abs(GetComponentInParent<Rigidbody2D>().angularVelocity) < 300)
+                {
+                    ws.StartCoroutine(ws.DisableColliderForSeconds(0.5f));
+                    plusKnife();
+                    StartCoroutine("turnOffAndOn", other.gameObject);
+                } else {
+                    swordFly.rotationPower = -25f;
+                    swordFly.jumpSword(-1);
+                    swordFly.rotationPower = -50f;
+                    // minusKnife();
+                }
+            }
+
+
     }
 
     IEnumerator turnOffAndOn(GameObject other)
@@ -74,6 +92,7 @@ public class HitSystem : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         other.SetActive(true);
     }
+
     public void minusKnife()
     {
         //SwordFly.swordWay = !SwordFly.swordWay;
@@ -85,9 +104,9 @@ public class HitSystem : MonoBehaviour
         knifes.Clear();
 
         --count;
-        Debug.Log(count);
+//        Debug.Log(count);
 
-        swordFly.jumpSword(-1);
+        swordFly.jump2Sword(-1);
 
         for(int i = 0; i < count; i++)
         {
@@ -113,7 +132,7 @@ public class HitSystem : MonoBehaviour
         --count;
         Debug.Log(count);
 
-        swordFly.jump2Sword(-1);
+        swordFly.jumpSword(-1);
 
         for (int i = 0; i < count; i++)
         {

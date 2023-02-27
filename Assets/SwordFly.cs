@@ -19,6 +19,11 @@ public class SwordFly : MonoBehaviour
     private bool shouldRotateClockwise = true;
     public float rotationSpeed = 100f;
     public float targetRotation = 180f;
+    public float torque = 10f; // The torque to apply
+    public float resistance = 2f; // The resistance to rotation
+    public float damping = 2f;  
+    public RotateObject rotateObject;
+    private bool blueCheck = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -45,25 +50,56 @@ public class SwordFly : MonoBehaviour
         //Debug.Log(rb.angularVelocity);
         // transform.Rotate(new Vector3(0, 0, ratio));
         //ratio *= 0.97f;
+        if(blueCheck){
+            // float currentRotation = transform.rotation.eulerAngles.z;
+
+            // if (currentRotation > targetRotation)
+            // {
+            //     // rotate counterclockwise
+            //     rb.AddTorque(-torque);
+            // }
+            // else if (currentRotation < targetRotation)
+            // {
+            //     // rotate clockwise
+            //     rb.AddTorque(torque);
+            // }
+
+            // // apply rotation resistance
+            // rb.angularVelocity *= Mathf.Clamp01(1f - Time.deltaTime * damping);
+
+            // // check if the target rotation has been reached
+            // if (Mathf.Abs(transform.rotation.eulerAngles.z - targetRotation) < 0.1f)
+            // {
+            //     blueCheck = false;
+            //     rb.angularVelocity = 0f; // stop the rotation
+            // }
+
+            // if(gameObject.transform.rotation.z > 120){
+
+            // rb.angularVelocity *= Mathf.Clamp01(1f - Time.deltaTime * damping);
+            
+            // check if the target rotation has been reached
+            if (transform.rotation.eulerAngles.z < 180f && transform.rotation.eulerAngles.z > 0f)
+            {
+                rb.angularDrag += 0.5f;
+                // rb.angularVelocity = 0f; // stop the rotation
+                if(rb.angularVelocity < 200){
+                    blueCheck = false;
+                    
+                    Debug.Log("블루폴스");
+                }
+            }
+            // }
+        } else {
+            rb.angularDrag = 5;
+        }
+        
 
         if (Input.GetKeyDown(KeyCode.B))
         {
-            if (transform.rotation.eulerAngles.z < targetRotation)
-            {
-                rb.angularVelocity = 0;
-                float rotaPower = rotationPower + Random.Range(-10f, 11f);
-                rb.AddTorque(rotaPower * -1, ForceMode2D.Force);
-                // rb.angularVelocity = 0;
-                // // Apply torque to the z-axis of the object
-                // float torque = rotationSpeed * Time.deltaTime;
-                // Debug.Log(torque);
-                // rb.AddTorque(torque, ForceMode2D.Force);
-
-            }
-            // shouldRotateClockwise = !shouldRotateClockwise;
-            // rb.angularVelocity = 0;
-            // float rotation = shouldRotateClockwise ? 180 : -180;
-            // targetRotation *= Quaternion.Euler(0, 0, rotation);
+          
+                jump2Sword(-1);
+            
         }
         
         if(Input.GetMouseButtonDown(0)){
@@ -104,13 +140,21 @@ public class SwordFly : MonoBehaviour
     public void jump2Sword(int way = 1)
     {
         rb.angularVelocity = 0;
-        float rotaPower = rotationPower + Random.Range(-10f, 11f);
-        rb.AddTorque(rotaPower * way, ForceMode2D.Force);
+        blueCheck = true;
+        Debug.Log("블루체크트루");
+        float rotaPower = -50;
+        rb.AddTorque(rotaPower * -1, ForceMode2D.Force);
         //rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Force);
 
         //if(rb.velocity.y <= 0)
         //    rb.drag
         rb.velocity = Vector2.up * jumpPower;
+
+    }
+
+    public void jump3Sword(int way = 1)
+    {
+        rb.angularVelocity = 0;
     }
 
     // void CheckRotationAndFall()

@@ -19,5 +19,6 @@ public class SideHitSystem : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) {
         isHitted = !isHitted;
+        GetComponent<AudioSource>().Play();
     }
 }

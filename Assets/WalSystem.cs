@@ -4,23 +4,28 @@ using UnityEngine;
 
 public class WalSystem : MonoBehaviour
 {
+    BoxCollider2D myCollider;
     // Start is called before the first frame update
+
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        myCollider = GetComponent<BoxCollider2D>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Knife")
         {
+            GetComponent<AudioSource>().Play();
             HitSystem.instance.minusKnife();
         }
+    }
+
+    public IEnumerator DisableColliderForSeconds(float seconds)
+    {
+            myCollider.enabled = false;
+            yield return new WaitForSeconds(seconds);
+            myCollider.enabled = true;
+
     }
 }

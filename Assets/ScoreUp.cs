@@ -12,8 +12,8 @@ public class ScoreUp : MonoBehaviour
                 Score.score++;
                 // Destroy(other.gameObject);
                 // HitSystem.instance.knifes.Clear();
-                HitSystem.instance.GarenSword();
-                // HitSystem.instance.minusKnife();
+                // HitSystem.instance.GarenSword();
+                HitSystem.instance.minusKnife();
                 GetComponent<AudioSource>().Play();
                 gameObject.transform.position = new Vector3(100, 100, 100);
                 Destroy(gameObject, 3);
