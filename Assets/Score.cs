@@ -12,6 +12,8 @@ public class Score : MonoBehaviour
     void Start()
     {
         score = 0;
+
+        bestScore = PlayerPrefs.GetInt("BestScore", 0);
     }
 
     // Update is called once per frame

@@ -133,6 +133,7 @@ public class SwordFly : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other) {
         if(Score.score > Score.bestScore){
             Score.bestScore = Score.score;
+            PlayerPrefs.SetInt("BestScore",Score.bestScore);
         }
         SceneManager.LoadScene("GameOverScene");
     }
