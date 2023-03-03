@@ -8,11 +8,7 @@ public class MakeBird : MonoBehaviour
     public GameObject bird;
     public float timeDiff;
     float timer = 0;
-
     float range = 0f;
-    void Start()
-    {
-    }
 
     // Update is called once per frame
     void Update()
@@ -27,8 +23,7 @@ public class MakeBird : MonoBehaviour
             changeTimeDiff();
         }
     }
-
-
+    
     void changeTimeDiff()
     {
         range = Random.Range(0,Score.score);

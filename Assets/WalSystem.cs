@@ -5,8 +5,8 @@ using UnityEngine;
 public class WalSystem : MonoBehaviour
 {
     BoxCollider2D myCollider;
-    // Start is called before the first frame update
 
+    // Start is called before the first frame update
     void Start()
     {
         myCollider = GetComponent<BoxCollider2D>();
