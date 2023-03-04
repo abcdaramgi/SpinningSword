@@ -8,6 +8,7 @@ TagManager:
   - Knife
   - Item
   - Side
+  - Hit
   layers:
   - Default
   - TransparentFX

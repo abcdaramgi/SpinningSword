@@ -41,6 +41,8 @@ public class HitSystem : MonoBehaviour
 
     public void plusKnife()
     {
+
+        TailController.instance.MakeTail();
         //SwordFly.swordWay = !SwordFly.swordWay;
         
         int a = transform.parent.childCount;
@@ -68,20 +70,24 @@ public class HitSystem : MonoBehaviour
         //     Debug.Log("들어간다!");
         //     swordFly.jump2Sword(-1);
         // }
-            if (other.tag == "Item")
+
+        if(SwordFly.gameEnd == true)
+            return;
+        
+        if (other.tag == "Item")
+        {
+            if(Mathf.Abs(GetComponentInParent<Rigidbody2D>().angularVelocity) < 300)
             {
-                if(Mathf.Abs(GetComponentInParent<Rigidbody2D>().angularVelocity) < 300)
-                {
-                    ws.StartCoroutine(ws.DisableColliderForSeconds(0.5f));
-                    plusKnife();
-                    StartCoroutine("turnOffAndOn", other.gameObject);
-                } else {
-                    swordFly.rotationPower = -25f;
-                    swordFly.jumpSword(-1);
-                    swordFly.rotationPower = -50f;
-                    // minusKnife();
-                }
+                ws.StartCoroutine(ws.DisableColliderForSeconds(0.5f));
+                plusKnife();
+                StartCoroutine("turnOffAndOn", other.gameObject);
+            } else {
+                swordFly.rotationPower = -25f;
+                swordFly.jumpSword(-1);
+                swordFly.rotationPower = -50f;
+                // minusKnife();
             }
+        }
 
 
     }
@@ -95,6 +101,8 @@ public class HitSystem : MonoBehaviour
 
     public void minusKnife()
     {
+
+        TailController.instance.MakeTail();
         //SwordFly.swordWay = !SwordFly.swordWay;
         
         for(int i = 0; i < knifes.Count; i++)

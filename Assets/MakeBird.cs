@@ -12,11 +12,15 @@ public class MakeBird : MonoBehaviour
     float range = 0f;
     void Start()
     {
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(!SwordFly.gameStart || SwordFly.gameEnd)
+            return;
+
         timer += Time.deltaTime;
         if (timer > timeDiff)
         {
