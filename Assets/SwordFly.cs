@@ -116,6 +116,7 @@ public class SwordFly : MonoBehaviour
     {
         gameEnd = true;
         SoundManager.instance.playSound(0);
+        SparkSystem.instance.genRedSpark(transform.position);
 
         Transform[] childs = GetComponentsInChildren<Transform>();
         for(int i = 0; i < childs.Length; i++)
