@@ -13,6 +13,9 @@ public class MakeBird : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!SwordFly.gameStart || SwordFly.gameEnd)
+            return;
+
         timer += Time.deltaTime;
         if (timer > timeDiff)
         {

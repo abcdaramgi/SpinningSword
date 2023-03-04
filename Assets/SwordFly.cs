@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
+using UnityEngine.UI;
+using TMPro;
 
 public class SwordFly : MonoBehaviour
 {
@@ -9,7 +12,11 @@ public class SwordFly : MonoBehaviour
     public float jumpPower;
     public float rotationPower;
     private bool blueCheck = false;
-    
+    public static bool gameStart = false;
+    public static bool gameEnd = false;
+    public GameObject Title;
+    public GameObject TapToStart;
+    public GameObject scoreText;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +25,9 @@ public class SwordFly : MonoBehaviour
         #else
             QualitySettings.vSyncCount = 1;
         #endif
+        
+        gameEnd = false;
+        gameStart = false;
 
         rb = GetComponent<Rigidbody2D>();
     }
@@ -25,9 +35,32 @@ public class SwordFly : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(gameEnd)
+            return;
+            
         if(Input.GetMouseButtonDown(0)){
+        
+            if(!gameStart)
+            {
+                GetComponent<Rigidbody2D>().gravityScale = 1f;
+                gameStart = true;
+
+                Vector2 endPos = new Vector2(0,1000);
+                Title.GetComponent<RectTransform>().DOAnchorPos(endPos,1f,false).SetEase(Ease.OutSine);
+
+                endPos = new Vector2(0,570);
+                TapToStart.GetComponent<RectTransform>().DOAnchorPos(endPos,1f,false).SetEase(Ease.OutSine);
+
+                Title.GetComponent<Image>().DOColor(new Color(1,1,1,0),0.9f).SetEase(Ease.OutSine);
+                TapToStart.GetComponent<Image>().DOColor(new Color(1,1,1,0),0.9f).SetEase(Ease.OutSine);
+
+                scoreText.GetComponent<TextMeshProUGUI>().DOColor(new Color(1,1,1,1),0.9f).SetEase(Ease.OutSine);
+                return;
+            }
+        
             GetComponent<AudioSource>().Play();
             jumpSword();
+            TailController.instance.MakeTail();
         }
     }
 
@@ -47,7 +80,7 @@ public class SwordFly : MonoBehaviour
         }
         else
         {
-            rb.angularDrag = 5;
+          rb.angularDrag = 5;
         }
     }
 
@@ -64,7 +97,50 @@ public class SwordFly : MonoBehaviour
             Score.bestScore = Score.score;
             PlayerPrefs.SetInt("BestScore",Score.bestScore);
         }
+
+        if(gameEnd == false)
+            StartCoroutine("gameEndRoutine");
+    }
+
+    IEnumerator gameEndRoutine()
+    {
+        gameEnd = true;
+        SoundManager.instance.playSound(0);
+
+        Transform[] childs = GetComponentsInChildren<Transform>();
+        for(int i = 0; i < childs.Length; i++)
+        {
+            if(childs[i].tag == "Hit")
+            {
+                childs[i].GetComponent<HitSystem>().enabled = false;
+            }
+            if(childs[i].tag == "Knife")
+            {
+                childs[i].parent = null;
+                boomEffect(childs[i].gameObject);
+            }
+        }
+
+        boomEffect(this.gameObject);
+
+        yield return new WaitForSeconds(1f);
+
         SceneManager.LoadScene("GameOverScene");
+    }
+
+
+    void boomEffect(GameObject target)
+    {
+        Vector2 randomVector = new Vector2(Random.Range(-1f,1f),Random.Range(1f,10f));
+
+        if(target.GetComponent<Rigidbody2D>() == null)
+        {
+            target.AddComponent<Rigidbody2D>();
+        }
+
+        target.GetComponent<Rigidbody2D>().AddForce(randomVector,ForceMode2D.Impulse);
+
+        target.GetComponent<Rigidbody2D>().AddTorque(Random.Range(-200,200), ForceMode2D.Force);
     }
 
     public void hitJumpSword(int way = 1)

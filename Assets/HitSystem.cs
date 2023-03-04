@@ -40,6 +40,8 @@ public class HitSystem : MonoBehaviour
 
     public void plusKnife()
     {
+        TailController.instance.MakeTail();
+
         int a = transform.parent.childCount;
 
         for (int i = 0; i < a; i++)
@@ -59,6 +61,9 @@ public class HitSystem : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if(SwordFly.gameEnd == true)
+            return;
+            
         if (other.tag == "Item")
         {
             if(Mathf.Abs(GetComponentInParent<Rigidbody2D>().angularVelocity) < 300)
@@ -83,6 +88,8 @@ public class HitSystem : MonoBehaviour
 
     public void minusKnife()
     {
+        TailController.instance.MakeTail();
+        
         for(int i = 0; i < knifes.Count; i++)
         {
             Destroy(knifes[i].gameObject);
