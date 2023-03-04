@@ -48,8 +48,6 @@ public class RotateObject : MonoBehaviour
         {
             yield return null;
         }
-
-        // stop the rotation when the target rotation is reached
         rb.angularVelocity = 0f;
     }
 }

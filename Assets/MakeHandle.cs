@@ -8,10 +8,6 @@ public class MakeHandle : MonoBehaviour
     public GameObject handle;
     public float timeDiff;
     float timer = 0;
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()

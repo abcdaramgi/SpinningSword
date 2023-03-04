@@ -10,7 +10,6 @@ public class HitSystem : MonoBehaviour
     public GameObject knife;
     public WalSystem ws;
     public int count = 0;
-    private bool isSideHitted = false;
     public float knifePositionDefault = 0.15f;
     public float knifePositionRange = 0.14f;
     public float hitPositionDefault = 0.085f;
@@ -41,10 +40,8 @@ public class HitSystem : MonoBehaviour
 
     public void plusKnife()
     {
-
         TailController.instance.MakeTail();
-        //SwordFly.swordWay = !SwordFly.swordWay;
-        
+
         int a = transform.parent.childCount;
 
         for (int i = 0; i < a; i++)
@@ -60,20 +57,13 @@ public class HitSystem : MonoBehaviour
         k.transform.localPosition = new Vector3(0, knifePositionDefault + (knifePositionRange * count++), 0);
         k.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 0));
         gameObject.transform.localPosition = new Vector3(0, hitPositionDefault + (hitPositionRange * count), 0);
-//        Debug.Log(count);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // if (other.tag == "Side")
-        // {
-        //     Debug.Log("들어간다!");
-        //     swordFly.jump2Sword(-1);
-        // }
-
         if(SwordFly.gameEnd == true)
             return;
-        
+            
         if (other.tag == "Item")
         {
             if(Mathf.Abs(GetComponentInParent<Rigidbody2D>().angularVelocity) < 300)
@@ -85,11 +75,8 @@ public class HitSystem : MonoBehaviour
                 swordFly.rotationPower = -25f;
                 swordFly.jumpSword(-1);
                 swordFly.rotationPower = -50f;
-                // minusKnife();
             }
         }
-
-
     }
 
     IEnumerator turnOffAndOn(GameObject other)
@@ -101,9 +88,7 @@ public class HitSystem : MonoBehaviour
 
     public void minusKnife()
     {
-
         TailController.instance.MakeTail();
-        //SwordFly.swordWay = !SwordFly.swordWay;
         
         for(int i = 0; i < knifes.Count; i++)
         {
@@ -112,9 +97,8 @@ public class HitSystem : MonoBehaviour
         knifes.Clear();
 
         --count;
-//        Debug.Log(count);
 
-        swordFly.jump2Sword(-1);
+        swordFly.hitJumpSword(-1);
 
         for(int i = 0; i < count; i++)
         {
@@ -125,10 +109,7 @@ public class HitSystem : MonoBehaviour
         }
 
         gameObject.transform.localPosition = new Vector3(0, hitPositionDefault + (hitPositionRange * count), 0);
-        //Destroy(knifes[--count]);
-        //knifes.RemoveAt(--count);
-        //gameObject.transform.localPosition = new Vector3(0, hitPositionDefault + (hitPositionRange * count), 0);
-    }
+   }
 
     public void GarenSword(){
         for (int i = 0; i < knifes.Count; i++)
@@ -149,7 +130,6 @@ public class HitSystem : MonoBehaviour
             k.transform.localPosition = new Vector3(0, knifePositionDefault + (knifePositionRange * i), 0);
             k.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 0));
         }
-
         gameObject.transform.localPosition = new Vector3(0, hitPositionDefault + (hitPositionRange * count), 0);
     }
 }
