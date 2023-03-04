@@ -19,8 +19,6 @@ public class Score : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // GetComponent<Text>().text = score.ToString();
         GetComponent<TextMeshProUGUI>().text = score.ToString();
-        // gameObject.GetComponent<TextMeshPro>().SetText(score.ToString());
     }
 }

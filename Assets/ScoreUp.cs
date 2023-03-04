@@ -10,9 +10,6 @@ public class ScoreUp : MonoBehaviour
             if(other.gameObject.tag == "Knife"){
                 isHit = true;
                 Score.score++;
-                // Destroy(other.gameObject);
-                // HitSystem.instance.knifes.Clear();
-                // HitSystem.instance.GarenSword();
                 HitSystem.instance.minusKnife();
                 GetComponent<AudioSource>().Play();
                 gameObject.transform.position = new Vector3(100, 100, 100);
@@ -20,12 +17,4 @@ public class ScoreUp : MonoBehaviour
             }
         }
     }
-
-    // private void OnCollisionEnter2D(Collider other){
-    //     if (Score.score > Score.bestScore)
-    //     {
-    //         Score.bestScore = Score.score;
-    //     }
-    //     SceneManager.LoadScene("GameOverScene");
-    // }
 }
