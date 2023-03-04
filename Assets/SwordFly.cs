@@ -15,7 +15,7 @@ public class SwordFly : MonoBehaviour
     public static bool gameStart = false;
     public static bool gameEnd = false;
     public GameObject Title;
-    public GameObject TapToStart;
+    public GameObject TapImg;
     public GameObject scoreText;
     // Start is called before the first frame update
     void Start()
@@ -50,8 +50,8 @@ public class SwordFly : MonoBehaviour
                 Transform[] titleText  = Title.GetComponentsInChildren<Transform>();
                 Title.GetComponent<RectTransform>().DOAnchorPos(endPos,1f,false).SetEase(Ease.OutSine);
 
-                endPos = new Vector2(0,570);
-                TapToStart.GetComponent<RectTransform>().DOAnchorPos(endPos,1f,false).SetEase(Ease.OutSine);
+                endPos = new Vector2(0,-1000);
+                TapImg.GetComponent<RectTransform>().DOAnchorPos(endPos,1f,false).SetEase(Ease.OutSine);
 
                 for(int i = 0; i < titleText.Length; i++)
                 {
