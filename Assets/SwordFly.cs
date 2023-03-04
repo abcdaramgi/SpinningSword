@@ -123,13 +123,19 @@ public class SwordFly : MonoBehaviour
                 GetComponent<Rigidbody2D>().gravityScale = 1f;
                 gameStart = true;
 
-                Vector2 endPos = new Vector2(0,1000);
+                Vector2 endPos = new Vector2(-145,1550);
+                
+                Transform[] titleText  = Title.GetComponentsInChildren<Transform>();
                 Title.GetComponent<RectTransform>().DOAnchorPos(endPos,1f,false).SetEase(Ease.OutSine);
 
                 endPos = new Vector2(0,570);
                 TapToStart.GetComponent<RectTransform>().DOAnchorPos(endPos,1f,false).SetEase(Ease.OutSine);
 
-                Title.GetComponent<Image>().DOColor(new Color(1,1,1,0),0.9f).SetEase(Ease.OutSine);
+                for(int i = 0; i < titleText.Length; i++)
+                {
+                    titleText[i].GetComponent<TextMeshProUGUI>().DOColor(new Color(1,1,1,0),0.9f).SetEase(Ease.OutSine);
+                }
+
                 TapToStart.GetComponent<Image>().DOColor(new Color(1,1,1,0),0.9f).SetEase(Ease.OutSine);
 
                 scoreText.GetComponent<TextMeshProUGUI>().DOColor(new Color(1,1,1,1),0.9f).SetEase(Ease.OutSine);
