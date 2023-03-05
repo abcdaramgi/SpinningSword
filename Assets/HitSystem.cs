@@ -53,6 +53,7 @@ public class HitSystem : MonoBehaviour
         knifes.Add(k);
         
         GetComponent<AudioSource>().Play();
+        SparkSystem.instance.genBlueSpark(transform.position);
         
         k.transform.localPosition = new Vector3(0, knifePositionDefault + (knifePositionRange * count++), 0);
         k.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 0));
@@ -99,6 +100,7 @@ public class HitSystem : MonoBehaviour
         --count;
 
         swordFly.hitJumpSword(-1);
+        SparkSystem.instance.genRedSpark(transform.position);
 
         for(int i = 0; i < count; i++)
         {

@@ -16,6 +16,8 @@ public class SwordFly : MonoBehaviour
     public static bool gameEnd = false;
     public GameObject Title;
     public GameObject TapImg;
+    public GameObject KnifeImg;
+    public GameObject KnifeImg_2;
     public GameObject scoreText;
     // Start is called before the first frame update
     void Start()
@@ -39,20 +41,29 @@ public class SwordFly : MonoBehaviour
             return;
             
         if(Input.GetMouseButtonDown(0)){
-        
+            if(UIManager.isPause) return;
+            
             if(!gameStart)
             {
                 GetComponent<Rigidbody2D>().gravityScale = 1f;
                 gameStart = true;
 
-                Vector2 endPos = new Vector2(0,1000);
+                Vector2 endPos = new Vector2(-145,1550);
+                
+                Transform[] titleText  = Title.GetComponentsInChildren<Transform>();
                 Title.GetComponent<RectTransform>().DOAnchorPos(endPos,1f,false).SetEase(Ease.OutSine);
 
                 endPos = new Vector2(0,-1000);
-                TapImg.GetComponent<RectTransform>().DOAnchorPos(endPos,1f,false).SetEase(Ease.OutSine);
+                //TapImg.GetComponent<RectTransform>().DOAnchorPos(endPos,1f,false).SetEase(Ease.OutSine);
 
-                Title.GetComponent<Image>().DOColor(new Color(1,1,1,0),0.9f).SetEase(Ease.OutSine);
+                for(int i = 0; i < titleText.Length; i++)
+                {
+                    titleText[i].GetComponent<TextMeshProUGUI>().DOColor(new Color(1,1,1,0),0.9f).SetEase(Ease.OutSine);
+                }
+
                 TapImg.GetComponent<Image>().DOColor(new Color(1,1,1,0),0.9f).SetEase(Ease.OutSine);
+                KnifeImg.GetComponent<Image>().DOColor(new Color(1,1,1,0),0.9f).SetEase(Ease.OutSine);
+                KnifeImg_2.GetComponent<Image>().DOColor(new Color(1,1,1,0),0.9f).SetEase(Ease.OutSine);
 
                 scoreText.GetComponent<TextMeshProUGUI>().DOColor(new Color(1,1,1,1),0.9f).SetEase(Ease.OutSine);
                 return;
@@ -106,6 +117,7 @@ public class SwordFly : MonoBehaviour
     {
         gameEnd = true;
         SoundManager.instance.playSound(0);
+        SparkSystem.instance.genRedSpark(transform.position);
 
         Transform[] childs = GetComponentsInChildren<Transform>();
         for(int i = 0; i < childs.Length; i++)
