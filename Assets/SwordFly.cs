@@ -98,7 +98,7 @@ public class SwordFly : MonoBehaviour
     public void jumpSword(int way = 1)
     {
         rb.angularVelocity = 0;
-        float rotaPower = rotationPower + Random.Range(-10f,11f);
+        float rotaPower = rotationPower + Random.Range(-30f, 0f);
         rb.AddTorque(rotaPower * way, ForceMode2D.Force);
         rb.velocity = Vector2.up * jumpPower;
     }

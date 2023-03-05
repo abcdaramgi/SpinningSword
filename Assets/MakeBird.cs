@@ -25,6 +25,8 @@ public class MakeBird : MonoBehaviour
             Destroy(newBird, 8);
             changeTimeDiff();
         }
+        
+        timeDiff = 3 - Score.score * 0.01f;
     }
     
     void changeTimeDiff()
