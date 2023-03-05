@@ -9,6 +9,7 @@ public class ScoreUp : MonoBehaviour
         if(!isHit){
             if(other.gameObject.tag == "Knife"){
                 isHit = true;
+                SparkSystem.instance.genFeather(transform.position);
                 Score.score++;
                 HitSystem.instance.minusKnife();
                 GetComponent<AudioSource>().Play();
