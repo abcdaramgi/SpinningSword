@@ -12,5 +12,6 @@ public class SideHitSystem : MonoBehaviour
 
         isHitted = !isHitted;
         GetComponent<AudioSource>().Play();
+        SparkSystem.instance.genRedSpark(transform.position);
     }
 }

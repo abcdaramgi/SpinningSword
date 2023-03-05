@@ -6,6 +6,7 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager instance;
     public List<AudioClip> clips;
+    public bool isPlay = true;
     // Start is called before the first frame update
     void Awake()
     {
@@ -21,9 +22,11 @@ public class SoundManager : MonoBehaviour
         GameObject sound = new GameObject();
         sound.AddComponent<AudioSource>().clip = clips[index];
         sound.GetComponent<AudioSource>().Play();
+        sound.GetComponent<AudioSource>().volume = 0.5f;
 
         Destroy(sound,1f);
     }
+
     // Update is called once per frame
     void Update()
     {

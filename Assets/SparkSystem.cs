@@ -31,6 +31,16 @@ public class SparkSystem : MonoBehaviour
     }
     public void genFeather(Vector3 pos)
     {
+        int r = Random.Range(2,5);
+
+        for(int i = 0; i < r; i++)
+        {
+            CreateFeather(pos);
+        }
+    }
+
+    public void CreateFeather(Vector3 pos)
+    {
         int[] choices = { -1, 1 };
 
         Vector2 randomVector = new Vector2(choices[Random.Range(0,2)],Random.Range(0f,-1f));
@@ -41,5 +51,6 @@ public class SparkSystem : MonoBehaviour
         temp.GetComponent<Rigidbody2D>().AddForce(randomVector,ForceMode2D.Impulse);
 
         Destroy(temp,1f);
+
     }
 }

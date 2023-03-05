@@ -76,6 +76,8 @@ public class HitSystem : MonoBehaviour
                 swordFly.rotationPower = -25f;
                 swordFly.jumpSword(-1);
                 swordFly.rotationPower = -50f;
+        SoundManager.instance.playSound(0);
+                SparkSystem.instance.genRedSpark(transform.position);
             }
         }
     }
@@ -100,7 +102,6 @@ public class HitSystem : MonoBehaviour
         --count;
 
         swordFly.hitJumpSword(-1);
-        SparkSystem.instance.genRedSpark(transform.position);
 
         for(int i = 0; i < count; i++)
         {

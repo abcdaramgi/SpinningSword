@@ -14,14 +14,14 @@ public class WalSystem : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-
         if(SwordFly.gameEnd == true)
             return;
             
         if (other.gameObject.tag == "Knife")
         {
-            GetComponent<AudioSource>().Play();
             HitSystem.instance.minusKnife();
+            GetComponent<AudioSource>().Play();
+            SparkSystem.instance.genRedSpark(HitSystem.instance.transform.position);
         }
     }
 
