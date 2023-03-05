@@ -41,7 +41,8 @@ public class SwordFly : MonoBehaviour
             return;
             
         if(Input.GetMouseButtonDown(0)){
-        
+            if(UIManager.isPause) return;
+            
             if(!gameStart)
             {
                 GetComponent<Rigidbody2D>().gravityScale = 1f;
