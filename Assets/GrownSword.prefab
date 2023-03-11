@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1320251971882796816}
   - component: {fileID: 4615225341090539126}
   - component: {fileID: 1452836331184517354}
+  - component: {fileID: 7223408680423567834}
   m_Layer: 0
   m_Name: GrownSword
   m_TagString: Knife
@@ -136,5 +137,17 @@ MonoBehaviour:
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 755437726be5f0e44b17b040f73ab64f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7223408680423567834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1320251971882796817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b96f8edec18b249aab1ecb36010c8388, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
