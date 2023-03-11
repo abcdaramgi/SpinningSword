@@ -110,11 +110,6 @@ public class SwordFly : MonoBehaviour
         }
 
         if(gameEnd == false)
-            if (Score.score > Score.bestScore)
-            {
-                Score.bestScore = Score.score;
-                PlayerPrefs.SetInt("BestScore", Score.bestScore);
-            }
             StartCoroutine("gameEndRoutine");
     }
 
@@ -133,6 +128,7 @@ public class SwordFly : MonoBehaviour
             }
             if(childs[i].tag == "Knife")
             {
+                childs[i].GetComponent<BoxCollider2D>().enabled = false;
                 childs[i].parent = null;
                 boomEffect(childs[i].gameObject);
             }
