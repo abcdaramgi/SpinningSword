@@ -22,7 +22,10 @@ public class BottomBanner : MonoBehaviour
     private void RequestBanner()
     {
         #if UNITY_ADROID    
-            string adUnitId = "ca-app-pub-5504078506585326/5274944577";
+            // 실전용 공고ID
+            // string adUnitId = "ca-app-pub-5504078506585326/5274944577";
+            // 데모용 광고ID
+            string adUnitId = "ca-app-pub-3940256099942544/6300978111";
         #elif UNITY_IPHONE
             string adUnitId = "ca-app-pub-3940256099942544/2934735716";
         #else

@@ -110,6 +110,11 @@ public class SwordFly : MonoBehaviour
         }
 
         if(gameEnd == false)
+            if (Score.score > Score.bestScore)
+            {
+                Score.bestScore = Score.score;
+                PlayerPrefs.SetInt("BestScore", Score.bestScore);
+            }
             StartCoroutine("gameEndRoutine");
     }
 

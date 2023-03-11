@@ -10,7 +10,6 @@ public class BestScore : MonoBehaviour
     void Start()
     {
         GetComponent<TextMeshProUGUI>().text = "High Score : " + Score.bestScore.ToString();
-        
     }
 
 }
