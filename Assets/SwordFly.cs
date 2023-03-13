@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using DG.Tweening;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class SwordFly : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class SwordFly : MonoBehaviour
     public GameObject TapImg;
     public GameObject KnifeImg;
     public GameObject KnifeImg_2;
+    public GameObject SkinBtn;
     public GameObject scoreText;
     // Start is called before the first frame update
     void Start()
@@ -42,9 +44,12 @@ public class SwordFly : MonoBehaviour
             
         if(Input.GetMouseButtonDown(0)){
             if(UIManager.isPause) return;
+            if(EventSystem.current.IsPointerOverGameObject()) return;
             
             if(!gameStart)
             {
+                float time = 0.9f;
+                
                 GetComponent<Rigidbody2D>().gravityScale = 1f;
                 gameStart = true;
 
@@ -58,14 +63,21 @@ public class SwordFly : MonoBehaviour
 
                 for(int i = 0; i < titleText.Length; i++)
                 {
-                    titleText[i].GetComponent<TextMeshProUGUI>().DOColor(new Color(1,1,1,0),0.9f).SetEase(Ease.OutSine);
+                    titleText[i].GetComponent<TextMeshProUGUI>().DOColor(new Color(1,1,1,0),time).SetEase(Ease.OutSine);
                 }
 
-                TapImg.GetComponent<Image>().DOColor(new Color(1,1,1,0),0.9f).SetEase(Ease.OutSine);
-                KnifeImg.GetComponent<Image>().DOColor(new Color(1,1,1,0),0.9f).SetEase(Ease.OutSine);
-                KnifeImg_2.GetComponent<Image>().DOColor(new Color(1,1,1,0),0.9f).SetEase(Ease.OutSine);
+                TapImg.GetComponent<Image>().DOColor(new Color(1,1,1,0),time).SetEase(Ease.OutSine);
+                KnifeImg.GetComponent<Image>().DOColor(new Color(1,1,1,0),time).SetEase(Ease.OutSine);
+                KnifeImg_2.GetComponent<Image>().DOColor(new Color(1,1,1,0),time).SetEase(Ease.OutSine);
+                SkinBtn.GetComponent<Image>().DOColor(new Color(1,1,1,0),time).SetEase(Ease.OutSine);
 
-                scoreText.GetComponent<TextMeshProUGUI>().DOColor(new Color(1,1,1,1),0.9f).SetEase(Ease.OutSine);
+                scoreText.GetComponent<TextMeshProUGUI>().DOColor(new Color(1,1,1,1),time).SetEase(Ease.OutSine);
+
+                Destroy(TapImg,time);
+                Destroy(KnifeImg,time);
+                Destroy(KnifeImg_2,time);
+                Destroy(SkinBtn,time);
+
                 return;
             }
         
