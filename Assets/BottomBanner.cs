@@ -21,7 +21,7 @@ public class BottomBanner : MonoBehaviour
 
     private void RequestBanner()
     {
-        #if UNITY_ADROID    
+        #if UNITY_ANDROID    
             // 실전용 공고ID
             // string adUnitId = "ca-app-pub-5504078506585326/5274944577";
             // 데모용 광고ID
